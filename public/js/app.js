@@ -54,21 +54,21 @@ weatherForm.addEventListener('submit', (event) => {
               "Please Enter a Valid Address in Seach Box !";
           // console.log("Please Enter a Valid Address in Seach Box !");
      } else {         
-          fetch(`http://localhost:3000/weather?address=${address}`)
-          .then((response) => {
-               response.json().then((data) => {
-                    if (data.error) {
-                         messageOne.textContent = data.error;
-                    console.log(data.error);
-                    } else {
-                         messageOne.textContent = `Place : ${data.place}`;
-                         messageTwo.textContent = `Weather : ${data.weather}  |  Temperature : ${data.temperature}`;
-               }
-          });
-     })
-     .catch((error) => {
-          console.log(error);
-     });
+          fetch(`/weather?address=${address}`)
+              .then((response) => {
+                  response.json().then((data) => {
+                      if (data.error) {
+                          messageOne.textContent = data.error;
+                          console.log(data.error);
+                      } else {
+                          messageOne.textContent = `Place : ${data.place}`;
+                          messageTwo.textContent = `Weather : ${data.weather}  |  Temperature : ${data.temperature}`;
+                      }
+                  });
+              })
+              .catch((error) => {
+                  console.log(error);
+              });
 }
 });
 
