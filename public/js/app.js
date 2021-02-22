@@ -46,6 +46,7 @@ const messageTwo = document.querySelector("#message2");
 weatherForm.addEventListener('submit', (event) => {
      // Prevents the Default behavior of browser --> Refreshing & Rendering the page
      messageOne.textContent = 'Finding best possible results . . .';
+     messageTwo.textContent = " ";
      event.preventDefault();
     const address = searchElement.value;
      // console.log(`You are searching for ${address}`);
@@ -55,20 +56,28 @@ weatherForm.addEventListener('submit', (event) => {
           // console.log("Please Enter a Valid Address in Seach Box !");
      } else {         
           fetch(`/weather?address=${address}`)
-              .then((response) => {
-                  response.json().then((data) => {
-                      if (data.error) {
-                          messageOne.textContent = data.error;
-                          console.log(data.error);
-                      } else {
-                          messageOne.textContent = `Place : ${data.place}`;
-                          messageTwo.textContent = `Weather : ${data.weather}  |  Temperature : ${data.temperature}`;
-                      }
-                  });
-              })
-              .catch((error) => {
-                  console.log(error);
-              });
+          .then((response) => {
+               response.json().then((data) => {
+                    if (data.error) {
+                         messageOne.textContent = data.error;
+                    console.log(data.error);
+                    } else {
+                         if (
+                             data.place !== undefined ||
+                             data.weather !== undefined ||
+                             data.temperature !== undefined
+                         ) {
+                             messageOne.textContent = `Place : ${data.place}`;
+                             messageTwo.textContent = `Weather : ${data.weather}  |  Temperature : ${data.temperature}`;
+                         } else {
+                             messageOne.textContent = `Could not Find the Current Forecast !`;
+                         }
+               }
+          });
+     })
+     .catch((error) => {
+          console.log(error);
+     });
 }
 });
 

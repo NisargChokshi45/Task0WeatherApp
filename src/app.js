@@ -30,15 +30,15 @@ app.get("", (req, res) => {
 
 app.get("/about", (req, res) => {
     res.render("about", {
-        title: "About Bacancy",
+        title: "About Us",
         name: "Bacancy Technology",
     });
 });
 
-app.get("/help", (req, res) => {
-    res.render("help", {
+app.get("/contact", (req, res) => {
+    res.render("contact", {
         helpText: "This is some helpful text.",
-        title: "Help",
+        title: "Contact Us",
         name: "Bacancy Technology",
     });
 });
@@ -62,13 +62,13 @@ app.get("/products", (req, res, next) => {
     }
 });
 
-app.get('/help/*', (req, res) => {
+app.get("/contact/*", (req, res) => {
     res.render("404", {
         title: "404",
         name: "Bacancy Technology",
         errorMessage: "Help article not found.",
     });
-})
+});
 
 app.get('*', (req, res) => {
     res.render("404", {
